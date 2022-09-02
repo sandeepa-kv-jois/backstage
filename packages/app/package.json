@@ -40,6 +40,7 @@
     "@backstage/plugin-kafka": "^0.3.9-next.1",
     "@backstage/plugin-kubernetes": "^0.7.2-next.1",
     "@backstage/plugin-lighthouse": "^0.3.9-next.1",
+    "@backstage/plugin-my-plugin": "^0.0.0",
     "@backstage/plugin-newrelic": "^0.3.27-next.1",
     "@backstage/plugin-newrelic-dashboard": "^0.2.2-next.1",
     "@backstage/plugin-org": "^0.5.9-next.1",
