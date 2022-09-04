@@ -49,7 +49,7 @@ function ExampleLogViewer(row : any){
         })
       
         
-        const response = await fetch(`http://localhost:7007/api/proxy/harness/gateway/log-service/blob?accountID=dh-iBL35SqqpuqJF0yDjpQ&X-Harness-Token=&key=accountId:dh-iBL35SqqpuqJF0yDjpQ/orgId:default/projectId:CIQuickstart/pipelineId:${row.row.pipelineIdentifier}/runSequence:${row.row.runSequence}${queryParam}`);
+        const response = await fetch(`http://34.123.54.143:7007/api/proxy/harness/gateway/log-service/blob?accountID=dh-iBL35SqqpuqJF0yDjpQ&X-Harness-Token=&key=accountId:dh-iBL35SqqpuqJF0yDjpQ/orgId:default/projectId:CIQuickstart/pipelineId:${row.row.pipelineIdentifier}/runSequence:${row.row.runSequence}${queryParam}`);
         const data = await response.text();
         setLog(data);
         };

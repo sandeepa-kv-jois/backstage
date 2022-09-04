@@ -40,7 +40,7 @@ interface TableData {
 
 function runPipeline(pipelineId : TableData ): void
   {
-    fetch(`http://localhost:7007/api/proxy/harness/gateway/pipeline/api/pipeline/execute/${pipelineId.pipelineId}?routingId=dh-iBL35SqqpuqJF0yDjpQ&accountIdentifier=dh-iBL35SqqpuqJF0yDjpQ&projectIdentifier=CIQuickstart&orgIdentifier=default&moduleType=ci`, {
+    fetch(`http://34.123.54.143:7007/api/proxy/harness/gateway/pipeline/api/pipeline/execute/${pipelineId.pipelineId}?routingId=dh-iBL35SqqpuqJF0yDjpQ&accountIdentifier=dh-iBL35SqqpuqJF0yDjpQ&projectIdentifier=CIQuickstart&orgIdentifier=default&moduleType=ci`, {
       "headers": {
         "content-type": "application/yaml",
       },
@@ -153,7 +153,7 @@ function MyComponent() {
         projectIdentifier: `${entity.metadata.annotations?.[projectid]}`,
         size: '50',
       }).toString();
-      const response = await fetch(`http://localhost:7007/api/proxy/harness/gateway/pipeline/api/pipelines/execution/summary?${query}`, {
+      const response = await fetch(`http://34.123.54.143:7007/api/proxy/harness/gateway/pipeline/api/pipelines/execution/summary?${query}`, {
         "method": "POST",
       });
       const data = await response.json();     

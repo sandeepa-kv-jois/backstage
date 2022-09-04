@@ -25,7 +25,7 @@ export const BuildWithStepsPage = () => {
       const planExecutionId = url.split("/").pop();
       async function run()
       {
-      const response = await fetch(`http://localhost:7007/api/proxy/harness/gateway/pipeline/api/pipelines/execution/v2/${planExecutionId}?${query}`);
+      const response = await fetch(`http://34.123.54.143:7007/api/proxy/harness/gateway/pipeline/api/pipelines/execution/v2/${planExecutionId}?${query}`);
       const data = await response.json();
       setdata(data.data.pipelineExecutionSummary.layoutNodeMap);
       };
@@ -60,7 +60,7 @@ export const BuildWithStepsPage = () => {
       const planExecutionId = url.split("/").pop();
       async function runnode()
       {
-      const response = await fetch(`http://localhost:7007/api/proxy/harness/gateway/pipeline/api/pipelines/execution/v2/${planExecutionId}?${querynode}`);
+      const response = await fetch(`http://34.123.54.143:7007/api/proxy/harness/gateway/pipeline/api/pipelines/execution/v2/${planExecutionId}?${querynode}`);
       const data = await response.json();
       let buildsteps: {id: string,  name: string, stepId: string, baseFqn: string, runSequence: Number, pipelineIdentifier: string}[] = [];
       const json2 = data.data.executionGraph.nodeMap || {};
