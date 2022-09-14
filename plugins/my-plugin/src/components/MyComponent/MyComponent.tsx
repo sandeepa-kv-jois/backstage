@@ -6,7 +6,7 @@ import { useEntity } from "@backstage/plugin-catalog-react";
 import { Link as RouterLink } from 'react-router-dom';
 import { harnessCIBuildRouteRef } from '../../route-refs';
 import { useRouteRef } from '@backstage/core-plugin-api';
-
+import { useApi, configApiRef } from '@backstage/core-plugin-api';
 
 
 const getStatusComponent = (status: string | undefined = '') => {
@@ -38,9 +38,9 @@ interface TableData {
 }
 
 
-function runPipeline(pipelineId : TableData ): void
+function runPipeline(pipelineId : TableData,backendUrl: string ): void
   {
-    fetch(`http://34.123.54.143:7007/api/proxy/harness/gateway/pipeline/api/pipeline/execute/${pipelineId.pipelineId}?routingId=dh-iBL35SqqpuqJF0yDjpQ&accountIdentifier=dh-iBL35SqqpuqJF0yDjpQ&projectIdentifier=CIQuickstart&orgIdentifier=default&moduleType=ci`, {
+    fetch(`${backendUrl}/api/proxy/harness/gateway/pipeline/api/pipeline/execute/${pipelineId.pipelineId}?routingId=dh-iBL35SqqpuqJF0yDjpQ&accountIdentifier=dh-iBL35SqqpuqJF0yDjpQ&projectIdentifier=CIQuickstart&orgIdentifier=default&moduleType=ci`, {
       "headers": {
         "content-type": "application/yaml",
       },
@@ -64,6 +64,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function MyComponent() {
+  const configApi = useApi(configApiRef);
+  const backendUrl = configApi.getString('backend.baseUrl');
   const [tableData, setTableData] = useState();
   const classes = useStyles();
   const columns: TableColumn[] = [
@@ -153,7 +155,7 @@ function MyComponent() {
         projectIdentifier: `${entity.metadata.annotations?.[projectid]}`,
         size: '50',
       }).toString();
-      const response = await fetch(`http://34.123.54.143:7007/api/proxy/harness/gateway/pipeline/api/pipelines/execution/summary?${query}`, {
+      const response = await fetch(`${backendUrl}/api/proxy/harness/gateway/pipeline/api/pipelines/execution/summary?${query}`, {
         "method": "POST",
       });
       const data = await response.json();     
