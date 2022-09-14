@@ -4,8 +4,11 @@ import { Breadcrumbs, Link } from '@backstage/core-components';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useEntity } from "@backstage/plugin-catalog-react";
 import {AccordionwithArray} from './AccordionwithArray';
+import { useApi, configApiRef } from '@backstage/core-plugin-api';
 
 export const BuildWithStepsPage = () => {
+    const configApi = useApi(configApiRef);
+    const backendUrl = configApi.getString('backend.baseUrl');
     const [data1,setdata]=useState();
     const [count, setCount] = useState(0);
     const{ entity } = useEntity();
@@ -25,7 +28,7 @@ export const BuildWithStepsPage = () => {
       const planExecutionId = url.split("/").pop();
       async function run()
       {
-      const response = await fetch(`http://34.123.54.143:7007/api/proxy/harness/gateway/pipeline/api/pipelines/execution/v2/${planExecutionId}?${query}`);
+      const response = await fetch(`${backendUrl}/api/proxy/harness/gateway/pipeline/api/pipelines/execution/v2/${planExecutionId}?${query}`);
       const data = await response.json();
       setdata(data.data.pipelineExecutionSummary.layoutNodeMap);
       };
@@ -60,7 +63,7 @@ export const BuildWithStepsPage = () => {
       const planExecutionId = url.split("/").pop();
       async function runnode()
       {
-      const response = await fetch(`http://34.123.54.143:7007/api/proxy/harness/gateway/pipeline/api/pipelines/execution/v2/${planExecutionId}?${querynode}`);
+      const response = await fetch(`${backendUrl}/api/proxy/harness/gateway/pipeline/api/pipelines/execution/v2/${planExecutionId}?${querynode}`);
       const data = await response.json();
       let buildsteps: {id: string,  name: string, stepId: string, baseFqn: string, runSequence: Number, pipelineIdentifier: string}[] = [];
       const json2 = data.data.executionGraph.nodeMap || {};
