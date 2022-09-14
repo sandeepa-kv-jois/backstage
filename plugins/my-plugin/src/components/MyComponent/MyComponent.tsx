@@ -132,7 +132,7 @@ function MyComponent() {
       field: 'col5',
       render: (row : Partial<TableData>) => (
         <div>
-          <IconButton aria-label="replay" onClick={() => runPipeline(Object(row))}>
+          <IconButton aria-label="replay" onClick={() => runPipeline(Object(row),backendUrl)}>
             <ReplayIcon/>
           </IconButton>
         </div>
