@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { LogViewer } from '@backstage/core-components';
 import type { LogSectionData, LogLineData } from './types'
+import { useApi, configApiRef } from '@backstage/core-plugin-api';
 
 const formatDatetoLocale = (date: number | string): string => {
   return `${new Date(date).toLocaleDateString()} ${new Date(date).toLocaleTimeString()}`
@@ -38,6 +39,8 @@ function processLogsData(data: string): LogLineData[] {
     }, [])
 }
 function ExampleLogViewer(row : any){
+    const configApi = useApi(configApiRef);
+    const backendUrl = configApi.getString('backend.baseUrl');
     const [log,setLog]=useState("");
         async function run() {
         let queryParam : string = "";
@@ -49,7 +52,7 @@ function ExampleLogViewer(row : any){
         })
       
         
-        const response = await fetch(`http://34.123.54.143:7007/api/proxy/harness/gateway/log-service/blob?accountID=dh-iBL35SqqpuqJF0yDjpQ&X-Harness-Token=&key=accountId:dh-iBL35SqqpuqJF0yDjpQ/orgId:default/projectId:CIQuickstart/pipelineId:${row.row.pipelineIdentifier}/runSequence:${row.row.runSequence}${queryParam}`);
+        const response = await fetch(`${backendUrl}/api/proxy/harness/gateway/log-service/blob?accountID=dh-iBL35SqqpuqJF0yDjpQ&X-Harness-Token=&key=accountId:dh-iBL35SqqpuqJF0yDjpQ/orgId:default/projectId:CIQuickstart/pipelineId:${row.row.pipelineIdentifier}/runSequence:${row.row.runSequence}${queryParam}`);
         const data = await response.text();
         setLog(data);
         };
